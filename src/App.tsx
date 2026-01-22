@@ -6,11 +6,11 @@ function App() {
   let sessionContainer: HTMLDivElement | null = null;
   // set your auth endpoint here
   // a sample is available here: https://github.com/zoom/videosdk-auth-endpoint-sample
-  const authEndpoint = ""; // http://localhost:4000
+  const authEndpoint = "http://localhost:4000"; // http://localhost:4000
   const config: CustomizationOptions = {
     videoSDKJWT: "",
     sessionName: "test",
-    userName: "React",
+    userName: "test",
     sessionPasscode: "123",
     featuresOptions: {
       preview: {
@@ -37,7 +37,7 @@ function App() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        sessionName: config.sessionName,
+        sessionName: "test",
         role: role,
         videoWebRtcMode: 1,
       }),
@@ -62,7 +62,7 @@ function App() {
   function joinSession() {
     console.log(config);
     if (sessionContainer) {
-      uitoolkit.joinSession(sessionContainer, config);
+      uitoolkit.joinSession(sessionContainer, config); 
       sessionContainer && uitoolkit.onSessionClosed(sessionClosed);
       uitoolkit.onSessionDestroyed(sessionDestroyed);
     }
