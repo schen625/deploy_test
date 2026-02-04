@@ -16,6 +16,12 @@ function App() {
       preview: {
         enable: true,
       },
+      phone: {
+        enable: false,
+      },
+      subsession: {
+        enable: false,
+      },
       virtualBackground: {
         enable: true,
         virtualBackgrounds: [
