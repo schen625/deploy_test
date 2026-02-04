@@ -28,7 +28,7 @@ function App() {
   };
   const role = 1;
 
-  function getVideoSDKJWT() {
+  function getVideoSDKJWT(userName: string, role: number) {
     sessionContainer = document.getElementById(
       "sessionContainer"
     ) as HTMLDivElement;
@@ -39,6 +39,7 @@ function App() {
       body: JSON.stringify({
         sessionName: "test",
         role: role,
+        userName: userName,
         videoWebRtcMode: 1,
       }),
     })
@@ -49,6 +50,7 @@ function App() {
         if (data.signature) {
           console.log(data.signature);
           config.videoSDKJWT = data.signature;
+          config.userName = userName;
           joinSession();
         } else {
           console.log(data);
@@ -84,7 +86,7 @@ function App() {
         <div id="join-flow">
           <h1>Zoom Video SDK Sample React</h1>
           <p>User interface offered by the Video SDK UI Toolkit</p>
-          <button onClick={getVideoSDKJWT}>Join Session</button>
+          <button onClick={() => {const name = prompt("Enter your name")|| "Guest"; getVideoSDKJWT(name,0)}}>Join Session</button>
         </div>
         <div id="sessionContainer"></div>
       </main>
