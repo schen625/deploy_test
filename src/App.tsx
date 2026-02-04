@@ -26,7 +26,6 @@ function App() {
       },
     },
   };
-  const role = 1;
 
   function getVideoSDKJWT(userName: string, role: number) {
     sessionContainer = document.getElementById(
