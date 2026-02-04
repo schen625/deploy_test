@@ -1,19 +1,16 @@
 import uitoolkit, { CustomizationOptions } from "@zoom/videosdk-ui-toolkit";
 import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
 import "./App.css";
-import {useState} from "react";
 
 function App() {
   let sessionContainer: HTMLDivElement | null = null;
-  const [userName, setUserName] = useState("");
-
   // set your auth endpoint here
   // a sample is available here: https://github.com/zoom/videosdk-auth-endpoint-sample
   const authEndpoint = "https://deploy-test-backend-3f10.onrender.com"; // http://localhost:4000
   const config: CustomizationOptions = {
     videoSDKJWT: "",
     sessionName: "test",
-    userName: userName,
+    userName: "Host",
     sessionPasscode: "123",
     featuresOptions: {
       preview: {
@@ -30,7 +27,7 @@ function App() {
     },
   };
 
-  function getVideoSDKJWT(userName: string, role: number) {
+  function getVideoSDKJWT(role:number) {
     sessionContainer = document.getElementById(
       "sessionContainer"
     ) as HTMLDivElement;
@@ -41,7 +38,7 @@ function App() {
       body: JSON.stringify({
         sessionName: "test",
         role: role,
-        userName: userName,
+        userName: "Guest",
         videoWebRtcMode: 1,
       }),
     })
@@ -52,7 +49,6 @@ function App() {
         if (data.signature) {
           console.log(data.signature);
           config.videoSDKJWT = data.signature;
-          config.userName = userName;
           joinSession();
         } else {
           console.log(data);
@@ -88,8 +84,11 @@ function App() {
         <div id="join-flow">
           <h1>Zoom Video SDK Sample React</h1>
           <p>User interface offered by the Video SDK UI Toolkit</p>
-          <input type="text" placeholder="Name" value={userName} onChange={(e) => setUserName(e.target.value)}/>
-          <button onClick={() => {getVideoSDKJWT(userName||"Guest",0)}}>Join Session</button>
+          <div id="meeting-button">
+          <button onClick={()=>getVideoSDKJWT(1)}>Start New Meeting</button>
+          <button onClick={()=>getVideoSDKJWT(0)}>Join Existing Session</button>
+          </div>
+          
         </div>
         <div id="sessionContainer"></div>
       </main>

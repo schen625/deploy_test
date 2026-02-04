@@ -36,3 +36,9 @@ main #join-flow button:hover {
   width: 100vw;
   height: 100vh;
 }
+
+#meeting-button{
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
