@@ -1,16 +1,19 @@
 import uitoolkit, { CustomizationOptions } from "@zoom/videosdk-ui-toolkit";
 import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
 import "./App.css";
+import {useState} from "react";
 
 function App() {
   let sessionContainer: HTMLDivElement | null = null;
+  const [userName, setUserName] = useState("");
+
   // set your auth endpoint here
   // a sample is available here: https://github.com/zoom/videosdk-auth-endpoint-sample
   const authEndpoint = "https://deploy-test-backend-3f10.onrender.com"; // http://localhost:4000
   const config: CustomizationOptions = {
     videoSDKJWT: "",
     sessionName: "test",
-    userName: "test",
+    userName: userName,
     sessionPasscode: "123",
     featuresOptions: {
       preview: {
@@ -85,7 +88,8 @@ function App() {
         <div id="join-flow">
           <h1>Zoom Video SDK Sample React</h1>
           <p>User interface offered by the Video SDK UI Toolkit</p>
-          <button onClick={() => {const name = prompt("Enter your name")|| "Guest"; getVideoSDKJWT(name,0)}}>Join Session</button>
+          <input type="text" placeholder="Name" value={userName} onChange={(e) => setUserName(e.target.value)}/>
+          <button onClick={() => {getVideoSDKJWT(userName||"Guest",0)}}>Join Session</button>
         </div>
         <div id="sessionContainer"></div>
       </main>
